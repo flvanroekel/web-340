@@ -1,0 +1,9 @@
+{
+    "name": "ejs-views",
+    "author": "Faye Van Roekel",
+    "private": true,
+    "dependencies": {
+        "ejs": "^2.6.2",
+        "express": "^4.17.1"
+    }
+}

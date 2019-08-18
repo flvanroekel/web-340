@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item active nav-link" href="#">
+                Home
+            </li>
+            <li class="nav-item nav-link" href="#">
+                Contact Us
+            </li>
+        </ul>
+    </nav>
+
+    <div role="main" class="container">
+        <br /><br />
+        <h2>EJS Views Example</h2>
+        <div class="row sm-12">
+            <div class="alert alert-success" role="alert">
+                <strong>First Name: </strong>  <span><%= firstName %></span><br />
+                <strong>Last Name: </strong>  <span><%= lastName %></span><br />
+                <strong>Address Name: </strong>  <span><%= address %></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
