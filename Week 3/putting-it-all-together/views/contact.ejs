@@ -1,0 +1,32 @@
+<!--
+===================================
+; Title:  contact.ejs
+; Author: Faye Van Roekel
+; Date:   25 August 2019
+; Description: Contact page assignment
+;===================================
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Putting it All Together Contact Page</title>
+  
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <% include header %>
+    <div role="main" class="container">
+      <br/><br/>
+      <h2>Welcome to the <%= message %>!</h2>
+    </div>
+    <% include footer %>
+  </body>
+</html>
