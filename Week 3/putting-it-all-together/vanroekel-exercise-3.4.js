@@ -16,7 +16,6 @@ var http = require("http");
 var path = require("path");
 var logger = require("morgan");
 
-
 var app = express();
 
 app.set("views", path.resolve(__dirname, "views"));
