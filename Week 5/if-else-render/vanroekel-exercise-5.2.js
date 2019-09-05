@@ -1,3 +1,18 @@
+const header = require('../../Vanroekel-header.js')
+                       
+console.log(header.display("Faye", "Van Roekel", "Exercise 4.4"));
+
+
+/*
+;===================================
+; Title: vanroekel-exercise-5.2.js
+; Author: Faye Van Roekel
+; Date: 5 Sept 2019
+; Description: If/Else/Render
+;===================================
+*/
+
+
 // requires
 
 var express = require('express');
@@ -7,25 +22,25 @@ var path = require('path');
 //app functions
 
 var app = express();
-app.set('views', path.resolve(_dirname, 'views'));
+app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // local composer array
 
-var composers = [
-    "Back",
-    "Mozart",
-    "Beethoven",
-    "Verdi"
-]
+var people = [
+    "Gorman",
+    "Schaefer",
+    "DeLaney",
+    "Ryan"
+];
 
 // routes
 
 app.get('/', function(req, res) {
     res.render('index', {
-        names: composers
+        names: people
     })
-})
+});
 
 // create server
 
