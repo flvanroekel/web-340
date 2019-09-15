@@ -1,8 +1,58 @@
+ <!--
+=========================================
+; Title:  index.ejs
+; Author: Faye Van Roekel
+; Date:   14 September 2019
+; Description: Index for EMS
+;========================================
+-->  
+   
 <!DOCTYPE html>
 <html lang="en">
   <% include header %>
-
-  <body>
-    <% include navbar %>
-
     
+  <body>
+  <% include navbar %>
+    
+  <div class="container">
+      <h1>Employee Management System</h1>
+          <p>
+          This is a database system for human resources.  It is a confidential system which contains records of employees.
+          </p>
+  </div>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+          <h2>Add an Employee Record</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+          <h2>Employee Record Listing</h2>
+          <p>
+          <a class="btn btn-secondary" href="#" role="button"
+           >View details &raquo;</a
+          >
+          </p>
+        </div>
+      <div class="col-md-4">
+          <h2>View Only Listing of Employees</h2>
+          <p>
+          <a class="btn btn-secondary" href="#" role="button"
+            >View details &raquo;</a
+          >
+          </p>
+        </div>
+    </div>
+    
+          <% include footer %>
+        </div>
+    
+        <% include scripts %>
+      </body>
+    </html> 
+
+
+
+   

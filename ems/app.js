@@ -15,7 +15,9 @@ var logger = require("morgan");
 var app = express();
 
 app.set("views", path.resolve(__dirname, "views"));
+
 app.set("view engine", "ejs");
+
 app.use(logger("short"));
 
 app.get("/", function(request, response) {
