@@ -1,0 +1,9 @@
+{
+    "name": "TDD in Action",
+    "author": "Faye Van Roekel",
+    "private": true,
+    "dependencies": {
+        "chai": "^4.2.0",
+        "mocha": "^6.2.0"
+    }
+}
