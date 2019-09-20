@@ -7,12 +7,6 @@
 ;===========================================
 */
 
-
-const header = require('../vanroekel-header.js');
-
-console.log(header.display('Faye', 'Van Roekel', 'Exercise 7.2'));
-
-
 var assert = require("assert");
 
 describe("String#split", function() {
