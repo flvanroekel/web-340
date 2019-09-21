@@ -33,9 +33,7 @@ db.once('open', function () {
   console.log('Application connected to mLab');
 });
 
-/**
- * Sets up CSRF protection.
- */
+
 let csrfProtection = csrf({ cookie: true });
 
 /**
