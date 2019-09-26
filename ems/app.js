@@ -2,7 +2,7 @@
 =======================================
 ; Title:  app.js
 ; Author: Faye Van Roekel
-; Date:   20 September 2019
+; Date:   25 September 2019
 ; Description: EJS layouts
 ;======================================
 */
@@ -34,18 +34,17 @@ db.once('open', function () {
 });
 
 
-let csrfProtection = csrf({ cookie: true });
+var csrfProtection = csrf({ cookie: true });
 
 /**
  * Initializes the express application.
  */
-let app = express();
+var app = express();
 
 /**
  * Configures the dependency libraries.
  */
-// Morgan logger
-app.use(logger('short'));
+
 // Body parser
 app.use(
   bodyParser.urlencoded({
@@ -54,8 +53,7 @@ app.use(
 );
 // Cookie parser
 app.use(cookieParser());
-// Helmet
-app.use(helmet.xssFilter());
+
 // CSRF protection
 app.use(csrfProtection);
 /**
@@ -77,10 +75,11 @@ app.set("view engine", "ejs");
 app.set('port', process.env.PORT || 8080);
 
 app.use(logger("short"));
+app.use(helmet.xssFilter());
 
 app.get("/", function (req, res) {
   res.render("index", {
-      title: "Home page",
+      title: "Homepage",
       styles: "/styles/index-styles.css"
   });
 });
