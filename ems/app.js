@@ -44,7 +44,7 @@ var app = express();
 /**
  * Configures the dependency libraries.
  */
-
+var app = express();
 // Body parser
 app.use(
   bodyParser.urlencoded({
@@ -66,16 +66,16 @@ app.use(function(req, res, next) {
   next();
 });
 
-var app = express();
-
 app.set("views", path.resolve(__dirname, "views"));
-
 app.set("view engine", "ejs");
-
 app.set('port', process.env.PORT || 8080);
 
 app.use(logger("short"));
 app.use(helmet.xssFilter());
+
+
+app.use(express.static(path.join(__dirname, 'styles')));
+
 
 app.get("/", function (req, res) {
   res.render("index", {
@@ -88,6 +88,44 @@ app.get("/new", function(req, res){
   res.render("new", {
       title: "New Users",
       styles: ""
+  });
+});
+
+
+app.get("/view/:queryName", function (request, response) {
+  var queryName = request.params.queryName;
+  Employee.find({'lastName': queryName}, function(error, employees) {
+      if (error) throw error;
+      if (employees.length > 0) {
+          response.render("view", {
+              title: "User Records",
+              employee: employees,
+              styles: ""
+          })
+      }else{
+          response.redirect("/list")
+      }
+  });
+
+
+});
+
+
+app.get("/list", function(req, res){
+  Employee.find({},function(error, employees){
+      if(error) throw error;
+      res.render("list", {
+          title:"User List",
+          employees: employees,
+          styles: ""
+      });
+  });
+});
+
+
+app.get("/", function(request, response) {
+  response.render("index", {
+    title: "Homepage"
   });
 });
 
@@ -112,45 +150,8 @@ app.post("/process", function(req, res) {
 });
 
 
-app.get("/view/:queryName", function (request, response) {
-  var queryName = request.params.queryName;
-  Employee.find({'lastName': queryName}, function(error, employees) {
-      if (error) throw error;
-      if (employees.length > 0) {
-          response.render("view", {
-              title: "User Records",
-              employee: employees,
-              styles: ""
-          })
-      }else{
-          response.redirect("/list")
-      }
-  });
 
 
-});
-
-
-app.use(express.static(path.join(__dirname, 'styles')));
-
-
-app.get("/list", function(req, res){
-    Employee.find({},function(error, employees){
-        if(error) throw error;
-        res.render("list", {
-            title:"User List",
-            employees: employees,
-            styles: ""
-        });
-    });
-});
-
-
-app.get("/", function(request, response) {
-  response.render("index", {
-    title: "Homepage"
-  });
-});
 
 http.createServer(app).listen(8080, function() {
   console.log("Application started and listening on port 8080");
