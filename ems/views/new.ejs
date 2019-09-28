@@ -1,13 +1,53 @@
+ <!--
+=========================================
+; Title:  new.ejs
+; Author: Faye Van Roekel
+; Date:   27 September 2019
+; Description: new.ejs
+;========================================
+-->  
+
+<!DOCTYPE html>
+<html lang="en">
+
 <%- include("header") %>
 
-<%- include("navbar") %>
+<body>
 
-<main class="container">
-  <div class="row pt-8">
-    <div class="col-12">
-        <h2>Data Entry Page - New Record</h2>
-    </div>
+  <div role="main" class="container" style="width: 50%;">
+    <br /><br />
+
+    <h2>-- New Employees Data Entry Page --</h2>
+    <form method="post" action="/process">
+      <div class="form-group">
+        <label for="txtFirstName">Name:</label>
+        <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" />
+      </div>
+
+      <div class="form-group">
+        <label for="txtLastName">Last Name:</label>
+        <input type="text" class="form-control" id="txtLastName" name="txtLastName" />
+      </div>
+
+      <div class="form-group">
+        <!-- CSRF token -->
+        <input name="_csrf" value="<%= csrfToken %>" type="hidden" />
+
+        <button type="submit" class="btn btn-secondary float-right">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <br /><br />
+
+    <a href="/list">Return to Employee Listing</a>
   </div>
-</main>
+
+  <% include scripts %>
+
 
 <%- include("footer") %>
+
+</body>
+</html>
