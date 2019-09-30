@@ -13,11 +13,14 @@ var path = require("path");
 var logger = require("morgan");
 var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
+var mongo = require('mongodb');
 var Employee = require("./models/employee");
 var helmet = require("helmet");
 var cookieParser = require("cookie-parser");
 var csrf = require("csurf");
 var csrfProtection = csrf({cookie: true});
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
 var mongoDb = "mongodb+srv://new-user_25:testuser1@buwebdev-cluster-1-2fw4y.mongodb.net/ems"; 
 
@@ -39,11 +42,7 @@ var csrfProtection = csrf({ cookie: true });
 /**
  * Initializes the express application.
  */
-var app = express();
 
-/**
- * Configures the dependency libraries.
- */
 var app = express();
 // Body parser
 app.use(
@@ -86,14 +85,16 @@ app.get("/", function (req, res) {
 
 app.get("/new", function(req, res){
   res.render("new", {
-      title: "New Users",
+      title: "New Employee",
       styles: ""
   });
 });
 
 
-app.get("/view/:queryName", function (request, response) {
-  var queryName = request.params.queryName;
+app.get("/view/:FirstName/:LastName", function (request, response) {
+  var firstName = req.params["firstName"];
+  var lastName = req.params["lastName"];
+
   Employee.find({'lastName': queryName}, function(error, employees) {
       if (error) throw error;
       if (employees.length > 0) {
@@ -110,6 +111,26 @@ app.get("/view/:queryName", function (request, response) {
 
 });
 
+app.get("/edit/:firstName/:lastName", (req, res) => {
+  var firstName = req.params["firstName"];
+  var lastName = req.params["lastName"];
+
+  Employee.find({ firstName: firstName, lastName: lastName }, function(
+    error,
+    employee
+  ) { 
+    if (error) throw err;
+
+    if (employee != null) {
+      res.render("edit", {
+        title: "Edit Employee Record",
+        employee: employee
+      });
+    } else {
+      res.redirect("/");
+    }
+  });
+});
 
 app.get("/list", function(req, res){
   Employee.find({},function(error, employees){
@@ -121,6 +142,7 @@ app.get("/list", function(req, res){
       });
   });
 });
+
 
 
 app.get("/", function(request, response) {
@@ -135,21 +157,41 @@ app.post("/process", function(req, res) {
       return;
   }
 
+app.post("/edit", (req, res) => {
+  if (!req.body.txtFirstName || !req.body.txtLastName) {
+      res.status(400).send("Entries require a name");
+      return;
+  }
 
   var entryFirstName = req.body.txtFirstName;
   var entryLastName = req.body.txtLastName;
   var employee = new Employee({
-      firstName: entryFirstName,
-      lastName: entryLastName
-  })
-  employee.save(function (error) {
-      if (error) throw error;
-      console.log("Add Entries: " + entryFirstName + " " + entryLastName);
+      firstName: req.body.txtFirstName,
+      lastName: req.body.txtLastName
   });
-  res.redirect("/list");
+  employee.save((error) =>{
+      if (error) throw error;
+      console.log(emp+"Data has been saved! ");
+  });
+  res.redirect("/"); //'redirect to another page
 });
 
 
+Employee.findAndUpdate(
+  { _id: req.body.hiddenId },
+  {
+    $set: {
+      firstName: req.body.txtFirstName,
+      lastName: req.body.txtLastName
+    }
+  }, function(
+  error, employee) {
+    if (error) throw err;
+    console.log(employee + " Employee Record is Updated");
+  });
+
+  res.redirect("/");
+});
 
 
 

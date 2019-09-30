@@ -10,4 +10,34 @@
   </div>
 </main>
 
+<% if (employees.length) { %>
+  <h2>-- Employee Listing --</h2>
+  <a href="/new" >Add New</a>
+  <table class="table table‐hover">
+    <thead class="thead‐dark">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% employees.forEach(function (employee) { %>
+      <tr>
+        <td>
+          <%= employee.firstName %>
+        </td>
+        <td>
+          <%= employee.lastName %>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  No Entries! <a href="/new" >Add one!</a>
+<% } %>
+
 <%- include("footer") %>
+
+
+
