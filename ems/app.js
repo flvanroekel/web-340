@@ -170,7 +170,7 @@ app.post("/edit", (req, res) => {
       if (error) throw error;
       console.log(emp+"Data has been saved! ");
   });
-  res.redirect("/"); //'redirect to another page
+  res.redirect("/"); 
 });
 
 
@@ -190,7 +190,12 @@ Employee.findAndUpdate(
   res.redirect("/");
 });
 
+app.set("port", process.env.PORT || 8080);
 
+app.listen(app.get("port"), function() {
+  
+  console.log("Application started on port " + app.get("port"));
+});
 
 http.createServer(app).listen(8080, function() {
   console.log("Application started and listening on port 8080");
