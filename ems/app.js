@@ -19,8 +19,7 @@ var helmet = require("helmet");
 var cookieParser = require("cookie-parser");
 var csrf = require("csurf");
 var csrfProtection = csrf({cookie: true});
-var routes = require('./routes/index');
-var users = require('./routes/users');
+
 
 var mongoDb = "mongodb+srv://new-user_25:testuser1@buwebdev-cluster-1-2fw4y.mongodb.net/ems"; 
 
@@ -142,8 +141,6 @@ app.get("/list", function(req, res){
       });
   });
 });
-
-
 
 app.get("/", function(request, response) {
   response.render("index", {

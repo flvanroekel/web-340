@@ -1,5 +1,4 @@
-<!-- Scripts -->
-<!--
+<!-- Scripts 
 =========================================
 ; Title:  scripts.ejs
 ; Author: Faye Van Roekel
@@ -8,63 +7,6 @@
 ;========================================
 -->
 
-<script>
-  var express = require("express");
-  var http = require("http");
-  var path = require("path");
-  var logger = require("morgan");
-  var app = express();
-  var mongo = require("mongodb");
-
-
-  app.set("views", path.resolve(__dirname, "views"));
-  app.set("view engine", "ejs");
-  app.use(logger("short"));
-  app.get("/", function (request, response) {
-      response.render("index", {
-          title: "Home page"
-      });
-  });
-
-  router.get('/thelist', function(req, res){
-    var MongoClient = mongodb.MongoClient;
-
-    var url = 'mongodb://localhost:27017/database';
-
-    MongoClient.connect(url, function(err, db){
-      if(err){
-        console.log('Unable to connect to the server', err);
-      } else {
-        console.log("Connection Established");
-
-        var collection = db.collection('EMS');
-
-        collection.find({}).toArray(function(err, result){
-          if  (err){
-            res.send(err);
-          } else if (result.length){
-            res.render('employeelist', {
-              "employeelist" : result
-            });
-          } else {
-            res.send('No documents found');
-          }
-          db.close();
-        });
-      }
-    });
-  });
-
-  router.get('/newemployee', function(req, res){
-    res.render('newemployee', {title: 'Add Employee'});
-  });
-
-  
-  http.createServer(app).listen(8080, function() {
-      console.log("Application started on port 8080!");
-  });
-  </script>
-  
 <script
   src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
   integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
