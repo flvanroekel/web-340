@@ -6,6 +6,9 @@
 ; Description: EJS layouts
 ;======================================
 */
+const header = require('../../Vanroekel-header.js')
+                       
+console.log(header.display("Faye", "Van Roekel", "Exercise 9.4"));
 
 var express = require("express");
 var http = require("http");
@@ -13,12 +16,10 @@ var path = require("path");
 var logger = require("morgan");
 var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
-var mongo = require('mongodb');
 var Employee = require("./models/employee");
 var helmet = require("helmet");
 var cookieParser = require("cookie-parser");
 var csrf = require("csurf");
-var csrfProtection = csrf({cookie: true});
 
 
 var mongoDb = "mongodb+srv://new-user_25:testuser1@buwebdev-cluster-1-2fw4y.mongodb.net/ems"; 
@@ -66,26 +67,21 @@ app.use(function(req, res, next) {
 
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
-
+app.set('port', process.env.PORT ||8080);
 
 app.use(logger("short"));
 app.use(helmet.xssFilter());
 
 
-app.use(express.static(path.join(__dirname, 'styles')));
-
-
 app.get("/", function (req, res) {
   res.render("index", {
-      title: "Homepage",
-      styles: "/styles/index-styles.css"
+      title: "Homepage"
   });
 });
 
-app.get("/new", function(req, res){
+app.get("/new", function(req, res) {
   res.render("new", {
-      title: "New Employee",
-      styles: ""
+      title: "New Employee"
   });
 });
 
@@ -149,7 +145,7 @@ app.get("/", function(request, response) {
 });
 
 app.post("/process", function(req, res) {
-  if (!req.body.txtFirstName || !req.body.txtLastName) {
+  if (!req.body.txtFirstName) {
       res.status(400).send("Name is required");
       return;
   }
@@ -160,8 +156,8 @@ app.post("/edit", (req, res) => {
       return;
   }
 
-  var entryFirstName = req.body.txtFirstName;
-  var entryLastName = req.body.txtLastName;
+  var FirstName = req.body.txtFirstName;
+  var LastName = req.body.txtLastName;
   var employee = new Employee({
       firstName: req.body.txtFirstName,
       lastName: req.body.txtLastName
